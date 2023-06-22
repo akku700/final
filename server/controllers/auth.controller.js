@@ -1,3 +1,4 @@
+// Import required modules and files
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
 const AppError = require("../error/AppError");
@@ -6,6 +7,7 @@ const jwt = require("jsonwebtoken");
 const sendCookie = require("../utils/sendCookie");
 const sendEmail = require("../utils/sendmail");
 
+// User Registration
 const register = asyncHandler(async (req, res, next) => {
   try {
     const newUser = new User({
@@ -16,28 +18,29 @@ const register = asyncHandler(async (req, res, next) => {
     res.status(201).json("User has been created.");
   } catch (error) {
     if (error.code === 11000) {
-      next(new AppError("email is already exit", 401));
+      next(new AppError("email is already exit", 401)); // Handle duplicate email error
       next(new AppError(error, 401));
     } else if (error.name === "CastError") {
-      const message = `Resource Not Found. Invalid: ${error.path}`;
+      const message = `Resource Not Found. Invalid: ${error.path}`; // Handle invalid resource error
       next(new AppError(message, 400));
     } else if (error.name === "FETCH_ERROR") {
-      const message = `provide information`;
+      const message = `provide information`; // Handle missing information error
       next(new AppError(message, 400));
     }
   }
 });
 
+// User Login
 const login = asyncHandler(async (req, res, next) => {
   try {
     const user = await User.findOne({ username: req.body.username });
-    if (!user) return next(new AppError("User not found", 404));
+    if (!user) return next(new AppError("User not found", 404)); // Handle user not found error
     const isCorrectPassword = bcrypt.compareSync(
       req.body.password,
       user.password
     );
     if (!isCorrectPassword)
-      return next(new AppError("Invalid userName OR Password", 404));
+      return next(new AppError("Invalid userName OR Password", 404)); // Handle incorrect password error
 
     const token = jwt.sign(
       {
@@ -49,12 +52,13 @@ const login = asyncHandler(async (req, res, next) => {
 
     const { password, ...info } = user._doc;
 
-    sendCookie(user, 201, res, token);
+    sendCookie(user, 201, res, token); // Send JWT token as a cookie
   } catch (error) {
     next(new AppError(error, 401));
   }
 });
 
+// User Logout
 const logout = asyncHandler(async (req, res, next) => {
   res
     .clearCookie("token", {
@@ -65,23 +69,22 @@ const logout = asyncHandler(async (req, res, next) => {
     .send("Logged out successfully.");
 });
 
+// Change User Password
 const changeUserPassword = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
   const { oldPassword, newPassword } = req.body;
 
   try {
-    // Find the user by the provided id
     const user = await User.findById(id);
 
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: "User not found" }); // Handle user not found error
     }
 
-    // Check if the old password matches the user's current password
     const isPasswordMatch = await user.comparePassword(oldPassword);
 
     if (!isPasswordMatch) {
-      return res.status(401).json({ message: "Invalid old password" });
+      return res.status(401).json({ message: "Invalid old password" }); // Handle incorrect old password error
     }
 
     // Update the user's password
@@ -97,8 +100,7 @@ const changeUserPassword = asyncHandler(async (req, res, next) => {
   }
 });
 
-const crypto = require("crypto");
-
+// Forgot Password - Generate reset password token and send email
 const forgotPassword = asyncHandler(async (req, res, next) => {
   const { email } = req.body;
 
@@ -106,7 +108,7 @@ const forgotPassword = asyncHandler(async (req, res, next) => {
   const user = await User.findOne({ email });
 
   if (!user) {
-    return next(new ErrorHandler("User not found", 404));
+    return next(new ErrorHandler("User not found", 404)); // Handle user not found error
   }
 
   // Generate reset password token and save user
@@ -138,6 +140,7 @@ const forgotPassword = asyncHandler(async (req, res, next) => {
   });
 });
 
+// Reset Password - Update user's password using the reset token
 const resetPassword = asyncHandler(async (req, res, next) => {
   const { token } = req.params;
   const { password } = req.body;
@@ -149,7 +152,7 @@ const resetPassword = asyncHandler(async (req, res, next) => {
     });
 
     if (!user) {
-      throw new Error("Invalid or expired reset token");
+      throw new Error("Invalid or expired reset token"); // Handle invalid or expired reset token error
     }
 
     user.password = password;
@@ -165,6 +168,7 @@ const resetPassword = asyncHandler(async (req, res, next) => {
   sendCookie(user, 200, res);
 });
 
+// Get Current User
 const getCurrentUser = asyncHandler(async (req, res, next) => {
   try {
     const token = req.cookies.token;
@@ -174,12 +178,11 @@ const getCurrentUser = asyncHandler(async (req, res, next) => {
     const user = await User.findById(decodedToken.id);
 
     if (!user) {
-      return next(createError(404, "User not found!"));
+      return next(createError(404, "User not found!")); // Handle user not found error
     }
 
     const { password, ...userInfo } = user._doc;
 
-    // sendCookie(user, 201, res, token);
     res.send(user);
   } catch (error) {
     next(error);

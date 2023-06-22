@@ -1,13 +1,13 @@
-import marketIcon1 from "../icon/market1.svg";
-import marketIcon2 from "../icon/market2.svg";
-import marketIcon3 from "../icon/market3.svg";
-import marketIcon4 from "../icon/market4.svg";
-import marketIcon5 from "../icon/market5.svg";
-import marketIcon6 from "../icon/market6.svg";
-import marketIcon7 from "../icon/market7.svg";
-import marketIcon8 from "../icon/market8.svg";
-import marketIcon9 from "../icon/market9.svg";
-import marketIcon10 from "../icon/market10.svg";
+import marketIcon1 from "../assets/icon/market1.svg";
+import marketIcon2 from "../assets/icon/market2.svg";
+import marketIcon3 from "../assets/icon/market3.svg";
+import marketIcon4 from "../assets/icon/market4.svg";
+import marketIcon5 from "../assets/icon/market5.svg";
+import marketIcon6 from "../assets/icon/market6.svg";
+import marketIcon7 from "../assets/icon/market7.svg";
+import marketIcon8 from "../assets/icon/market8.svg";
+import marketIcon9 from "../assets/icon/market9.svg";
+import marketIcon10 from "../assets/icon/market10.svg";
 
 export const marketsData = [
   {

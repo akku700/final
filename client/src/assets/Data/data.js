@@ -1,4 +1,4 @@
-import "../src/data.scss";
+import "./data.scss";
 export const cards = [
   {
     id: 1,

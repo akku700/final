@@ -7,8 +7,8 @@ import TrustedBy from "../../components/trustedBy/TrustedBy";
 import Slide from "../../components/slide/Slide";
 import CatCard from "../../components/catCard/CatCard";
 import ProjectCard from "../../components/projectCard/projectCard";
-import { cards, projects } from "../../data";
-import VideoURL from "../../icon/Ak.mp4";
+import { cards, projects } from "../../assets/Data/data";
+import VideoURL from "../../assets/icon/Ak.mp4";
 import Category from "../../components/trustedBy/Category";
 
 function Home() {

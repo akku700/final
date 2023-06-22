@@ -1,8 +1,7 @@
-
-
 import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
 import "./Featured.scss";
-import { useNavigate } from "react-router-dom";
 
 function Featured() {
   const [input, setInput] = useState("");
@@ -29,7 +28,7 @@ function Featured() {
       <div className="container">
         <div className="left">
           <h1 className="typewriter">
-            <span>freelance services your business  to</span>
+            <span>freelance services your business to</span>
           </h1>
           <div className="search">
             <div className="searchInput">
@@ -44,16 +43,30 @@ function Featured() {
           </div>
           <div className="popular">
             <span>Popular : </span>
-            <button>AI Services</button>
-            <button>Web Design</button>
-            <button>Logo Design</button>
-            <button>WordPress</button>
+            <button>
+              <Link className="link menuLink" to="/gigs?cat=design">
+                Graphics & Design
+              </Link>
+            </button>
+            <button>
+              <Link className="link menuLink" to="/gigs?cat=Video...Animation">
+                Video & Animation
+              </Link>
+            </button>
+            <button>
+              <Link className="link menuLink" to="/gigs?cat=Business">
+                Business
+              </Link>
+            </button>
+            <button>
+              <Link className="link menuLink" to="/gigs?cat=music">
+                Music & Audio
+              </Link>
+            </button>
           </div>
         </div>
         <div className="right">
           <img src={`./img/ak${randomNumber}.png`} alt="" />
-          
-
         </div>
       </div>
     </div>

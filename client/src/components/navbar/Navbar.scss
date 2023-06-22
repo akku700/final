@@ -4,7 +4,8 @@
   align-items: center;
   // background-color: #013914;
   // background-color: #636182;
-  background: radial-gradient(circle at 3% 45%, rgb(66, 60, 124) 3%, rgb(84 107 141) 64% 6%);
+  // background: radial-gradient(circle at 3% 45%, rgb(66, 60, 124) 3%, rgb(84 107 141) 64% 6%);
+  background: radial-gradient(circle at 3% 45%, rgb(53 46 133) 3%, rgb(84, 107, 141) 64% 6%);
 
   color: white;
   position: sticky;
@@ -39,7 +40,11 @@
     // background-color: white;
     // background: radial-gradient(circle at 10% 25%, #554fa342 0%, #87729a 250%);
     // background: radial-gradient(circle at 3% 45%, rgb(66, 60, 124) 3%, rgb(84 107 141) 64% 6%);
-    background: radial-gradient(circle at 3% 45%, rgb(44 39 91 / 77%) 3%, rgb(84 107 141 / 92%) 64% 6%);
+    background: radial-gradient(
+      circle at 3% 45%,
+      rgb(44 39 91 / 77%) 3%,
+      rgb(84 107 141 / 92%) 64% 6%
+    );
 
     color: rgb(255, 255, 255);
 
@@ -123,8 +128,7 @@
         cursor: pointer;
         font-size: 21px;
         // transition: cubic-bezier(0.075, 0.82, 0.165, 1);
-        
-        
+
         &:hover {
           transform: scale(1.22);
           background-color: #000000;

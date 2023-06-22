@@ -1,26 +1,29 @@
 const nodemailer = require("nodemailer");
 
 const sendEmail = async (options) => {
+  // Create a transporter for sending emails
   const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false,
-    requireTLS: true,
+    host: "smtp.gmail.com", // SMTP host for Gmail
+    port: 587, // SMTP port for Gmail
+    secure: false, // Set secure to false since we're using TLS
+    requireTLS: true, // Require TLS for secure connection
     auth: {
-      user: "akku29168@gmail.com",
-      pass: "eoxyqjdlvlbctdwd",
+      user: "akku29168@gmail.com", // Your Gmail email address
+      pass: "eoxyqjdlvlbctdwd", // Your Gmail password or app-specific password
     },
   });
 
-  const adoptions = {
-    from: "akku29168@gmail.com",
-    to: options.email,
-    subject: options.subject,
-    text: options.message,
-    html: options.html,
+  // Set the email options
+  const mailOptions = {
+    from: "akku29168@gmail.com", // Sender's email address
+    to: options.email, // Recipient's email address
+    subject: options.subject, // Email subject
+    text: options.message, // Plain text version of the email
+    html: options.html, // HTML version of the email
   };
 
-  await transporter.sendMail(adoptions);
+  // Send the email using the transporter and options
+  await transporter.sendMail(mailOptions);
 };
 
 module.exports = sendEmail;

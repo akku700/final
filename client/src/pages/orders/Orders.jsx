@@ -51,6 +51,8 @@ const Orders = () => {
             <tr>
               <th>Image</th>
               <th>Title</th>
+              <th>Name</th>
+              <th>Contact</th>
               <th>Price</th>
               <th>Chat</th>
               <th>Contact</th>
@@ -59,10 +61,19 @@ const Orders = () => {
             {data.map((order) => (
               <tr key={order._id}>
                 <td>
-                  {/* {console.log(order)} */}
                   <img className="image" src={order.img} alt="" />
                 </td>
                 <td>{order.title}</td>
+                <th>
+                  {currentUser.user.isSeller
+                    ? order.buyerId.username
+                    : order.sellerId.username}
+                </th>
+                <th>
+                  {currentUser.user.isSeller
+                    ? order.buyerId.phone
+                    : order.sellerId.phone}
+                </th>
                 <td>₹ {order.price}</td>
                 <th>
                   <Link to="/Chat">
